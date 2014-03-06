@@ -1,0 +1,12 @@
+div.row
+  div.span12
+    ul.pages
+      if page > 1
+        li
+          a(href="?page=${page-1}") &larr;
+      for p in xrange(1, pages+1)
+        li
+          a(href="?page=${p}")=p
+      if page < pages
+        li
+          a(href="?page=${page+1}") &rarr;

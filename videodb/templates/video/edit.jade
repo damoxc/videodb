@@ -1,0 +1,47 @@
+extends /base
+
+block content
+  h2 Edit Video
+
+  p
+    strong Old Path:
+    |  #{video.old_path}
+
+  form.form-horizontal(action="", method="POST")
+    input(type="hidden", name="mode", value=mode)
+    div.control-group
+      label.control-label(for="name") Name
+      div.controls
+        input.span6(type="text", id="name", name="name", value=video.name)
+    div.control-group
+      label.control-label(for="category") Category
+      div.controls
+        input.span6(type="text", id="category", name="category", value=category)
+    div.control-group
+      label.control-label(for="category") Tags
+      div.controls.tag-field.span6
+        input(type="text", id="tags", name="tags", value="", style="display: none;")
+        ul.tags
+          each tag in video.tags
+            li.tag=tag
+              a(href="/video/#{str(video.id)}/remove-tag/#{tag}").tag-remove x
+          li.input
+            input(type="text", id="tag-input", autocomplete="off", data-id="#{str(video.id)}")
+
+    div.form-actions
+      if mode == 'pending'
+        button.btn.btn-primary(type="submit") Next
+      else
+        button.btn.btn-primary(type="submit") Save
+      button.btn(type="submit") Cancel
+      if next
+        a.btn.btn-danger.pull-right(href="/delete/#{str(video.id)}?return_url=#{next}") Delete
+      else
+        a.btn.btn-danger.pull-right(href="/delete/#{str(video.id)}") Delete
+
+  div.span12
+    h3 Screenshots
+    each thumb in xrange(1, video.thumbs)
+      img(src="/thumbs/${video.id}/${'%08d.jpg' % thumb}")
+
+// vim: ft=jade sw=2 ts=2 sws=2

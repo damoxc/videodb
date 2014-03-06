@@ -1,0 +1,43 @@
+extends /base
+
+block append rightmenu
+  li.pull-right
+    a(href="/edit/${video.id}") Edit
+  li
+    a.btn-danger.pull-right(href="/delete/#{str(video.id)}") Delete
+
+block content
+  h2=video.name
+  div.row
+    div.span12
+      video(id="video", class="video-js vjs-default-skin", controls="", preload="auto",
+            width="940px", height="540px", poster="/static/img/poster.png", data-setup="{}",
+            data-id="${video.id}")
+        source(src="/videos/${video.id}.mp4", type="video/mp4")
+  div.row
+    div.span12
+    #video-info.span6
+      dl.dl-horizontal
+        dt Duration
+        dd.duration=fduration(video.length)
+
+        dt Views
+        dd.views=video.views
+
+        dt Added
+        dd=video.date.ctime()
+
+        dt Size
+        dd=fsize(video.size)
+
+        dt Quality
+        dd #{'%d x %d' % (video.width, video.height)}
+
+
+        dt Tags
+        dd
+          ul
+            each tag in video.tags
+              li=tag
+
+// vim: ft=jade sw=2 ts=2 sws=2

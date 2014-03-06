@@ -1,0 +1,27 @@
+extends base
+
+block content
+  div.row
+    div.span12
+      h2 Videos with tags: #{' '.join(tags)}
+      table#videos-table.table
+        thead
+          tr
+            th
+            th Name
+            th Length
+            th Views
+            th Size
+        tbody
+          each video in videos
+            tr
+              td.thumb
+                a(href="/player/${video.id}")
+                  img(src="/thumbs/${video.id}/${'%08d.jpg' % video.thumb}")
+              td
+                a(href="/player/${video.id}")= video.name
+              td #{fduration(video.length)}
+              td #{video.views} views
+              td #{fsize(video.size)}
+
+// vim: ft=jade sw=2 ts=2 sws=2 expandtab

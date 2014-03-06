@@ -1,0 +1,19 @@
+extends base
+
+block content
+  div.row
+    div.span6
+      h1 PTV
+  div.row
+    div.span12
+      h2 Recent Videos
+      each video in recent
+        div.thumb
+          a(href="/player/${video.id}")
+            img(src="/thumbs/${video.id}/${'%08d.jpg' % video.thumb}")
+          a(href="/player/${video.id}")= video.name
+          div.length #{fduration(video.length)}
+          div.views #{video.views} views
+          div.added=video.date.ctime()
+
+// vim: ft=jade sw=2 ts=2 sws=2

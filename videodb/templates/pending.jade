@@ -1,0 +1,28 @@
+extends /base
+
+block content
+  div.row
+    div.span12
+      h2 Pending Videos
+        small There are #{videos.count()} videos
+      table.table
+        thead
+          tr
+            th
+            th Name
+            th Length
+            th Views
+            th Size
+        tbody
+          each video in videos
+            tr
+              td.thumb
+                a(href="/edit/${video.id}")
+                  img(src="/thumbs/${video.id}/${'%08d.jpg' % video.thumb}")
+              td
+                a(href="/edit/${video.id}")= video.name
+              td #{fduration(video.length)}
+              td #{video.views} views
+              td #{fsize(video.size)}
+
+// vim: ft=jade sw=2 ts=2 sws=2
